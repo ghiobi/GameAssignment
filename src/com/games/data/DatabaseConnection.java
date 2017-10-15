@@ -8,16 +8,24 @@ public class DatabaseConnection {
 	
 	private static Connection instance = null;
 	
-	public static Connection getInstance() throws SQLException {
+	public static Connection getInstance() {
 		
-		if (DatabaseConnection.instance == null) {
+		if (instance == null) {
 			try {
-				Class.forName("com.mysql.jdbc.Driver").newInstance();
-			} catch (ClassNotFoundException|InstantiationException|IllegalAccessException e) {
-				System.out.println("Could not find class: com.mysql.jdbc.Driver");
-				System.exit(1);
+				
+				Class.forName("com.mysql.jdbc.Driver");
+				instance = DriverManager.getConnection("jdbc:mysql://localhost:3306/games", "root", "");
+				
+			} catch(ClassNotFoundException e) {
+				System.out.println("The class cannot be found: " + e.getMessage());
+			} catch (SQLException e) { 
+				System.out.println(e.getMessage());
+			} finally {
+				if(instance == null) {
+					System.out.println("Error loading driver!");
+					System.exit(1);
+				}
 			}
-			DatabaseConnection.instance = DriverManager.getConnection("jsbc:mysql//dumbledore.encs.concordia.ca/user=laurendy_lam&password=s8bX359EiAz0HSDP");
 		}
 		
 		return DatabaseConnection.instance;

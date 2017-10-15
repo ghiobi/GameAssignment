@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
                 <label for="form_password">Password</label>
-                <input type="password" name="email" class="form-control" id="form_password">
+                <input type="password" name="password" class="form-control" id="form_password">
             </div>
             <button class="btn btn-block btn-primary" type="submit">Login</button>
         </form>

@@ -35,9 +35,11 @@ public class LoginController extends HttpServlet {
 		
 		if (user == null) {
 			response.sendRedirect("login.jsp");
-			
 			return;
 		}
+		
+		response.getWriter().append(user.getFirstname() + "has signed in!");
+		System.out.println(user.getFirstname());
 	}
 	
 	protected AuthService getAuthService() {

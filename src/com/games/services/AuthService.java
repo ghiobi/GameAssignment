@@ -1,5 +1,6 @@
 package com.games.services;
 
+import com.games.data.gateway.UserTableGateway;
 import com.games.models.User;
 
 public class AuthService {
@@ -12,8 +13,22 @@ public class AuthService {
 		return null;
 	}
 	
+	public User getUserById(int id) {
+		return getUserGateway().getUserById(id);
+	}
+	
 	public User authenticate(String email, String password) {
-		return null;
+		User user = getUserGateway().getUserByEmail(email);
+		
+		if (user == null || !user.getPassword().equals(password)) {
+			return null;
+		}
+		
+		return user;
+	}
+	
+	protected UserTableGateway getUserGateway() {
+		return UserTableGateway.getInstance();
 	}
 	
 	public static AuthService getInstance () {
