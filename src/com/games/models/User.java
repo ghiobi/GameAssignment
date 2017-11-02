@@ -1,5 +1,9 @@
 package com.games.models;
 
+/**
+ * Object containing the User model.
+ *
+ */
 public class User {
 
 	private int userid;
@@ -13,27 +17,27 @@ public class User {
 	private String state;
 	private String zip;
 	private String country;
-	private String credit_card_type;
-	private String credit_card_number;
-	private String credit_card_cvv;
-	private String credit_card_expiry;
+	private String creditCardType;
+	private String creditCardNumber;
+	private String creditCardCvv;
+	private String creditCardExpiry;
 	
-	public int getUserid() {
+	public int getUserId() {
 		return userid;
 	}
-	public void setUserid(int userid) {
+	public void setUserId(int userid) {
 		this.userid = userid;
 	}
-	public String getFirstname() {
+	public String getFirstName() {
 		return firstname;
 	}
-	public void setFirstname(String firstname) {
+	public void setFirstName(String firstname) {
 		this.firstname = firstname;
 	}
-	public String getLastname() {
+	public String getLastName() {
 		return lastname;
 	}
-	public void setLastname(String lastname) {
+	public void setLastName(String lastname) {
 		this.lastname = lastname;
 	}
 	public String getEmail() {
@@ -84,29 +88,29 @@ public class User {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public String getCredit_card_type() {
-		return credit_card_type;
+	public String getCreditCardType() {
+		return creditCardType;
 	}
-	public void setCredit_card_type(String credit_card_type) {
-		this.credit_card_type = credit_card_type;
+	public void setCreditCardType(String credit_card_type) {
+		this.creditCardType = credit_card_type;
 	}
-	public String getCredit_card_number() {
-		return credit_card_number;
+	public String getCreditCardNumber() {
+		return creditCardNumber;
 	}
-	public void setCredit_card_number(String credit_card_number) {
-		this.credit_card_number = credit_card_number;
+	public void setCreditCardNumber(String credit_card_number) {
+		this.creditCardNumber = credit_card_number;
 	}
-	public String getCredit_card_cvv() {
-		return credit_card_cvv;
+	public String getCreditCardCvv() {
+		return creditCardCvv;
 	}
-	public void setCredit_card_cvv(String credit_card_cvv) {
-		this.credit_card_cvv = credit_card_cvv;
+	public void setCreditCardCvv(String credit_card_cvv) {
+		this.creditCardCvv = credit_card_cvv;
 	}
-	public String getCredit_card_expiry() {
-		return credit_card_expiry;
+	public String getCreditCardExpiry() {
+		return creditCardExpiry;
 	}
-	public void setCredit_card_expiry(String credit_card_expiry) {
-		this.credit_card_expiry = credit_card_expiry;
+	public void setCreditCardExpiry(String credit_card_expiry) {
+		this.creditCardExpiry = credit_card_expiry;
 	}
 	
 	

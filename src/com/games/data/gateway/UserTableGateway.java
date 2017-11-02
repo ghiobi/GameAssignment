@@ -7,7 +7,7 @@ import com.games.data.DatabaseConnection;
 import com.games.data.mappers.UserMapper;
 import com.games.models.User;
 
-public class UserTableGateway {
+public class UserTableGateway extends TableDataGateway {
 	
 	private static UserTableGateway instance = null;
 	
@@ -32,13 +32,14 @@ public class UserTableGateway {
 		return userMapper.mapOne(resultSet);
 	}
 	
-	protected ResultSet executeQuery (String sql) {
-		try {
-			return DatabaseConnection.getInstance().createStatement().executeQuery(sql);
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return null;
+	public User insertUser(User user) {
+		final String sql = "INSERT INTO users (firstname, lastname, email, password, address1, address2, city, state, country) "
+				+ "VALUES ('" + user.getFirstName()  + "', '" +  user.getLastName() + "', '" + user.getEmail() + "', "
+				+ "'" + user.getPassword() + "', '" + user.getAddress1() + "', '" + user.getAddress2() + "', "
+				+ "'" + user.getCity() + "', '" + user.getState() + "', '" + user.getCountry() + "');";
+	
+		user.setUserId(executeUpdate(sql)); 
+		return user;
 	}
 
 	public static UserTableGateway getInstance() {

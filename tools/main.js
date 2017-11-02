@@ -42,18 +42,33 @@ const extractGameInfo = function (body) {
 
         try {
             if ($("#gameWrapper #gameVitals").length) {
+            		info['name'] = $content.find('#gameTitle h1').text();
                 info['game_description'] = $content.find('#gameInfo > p').text();
                 info['console'] = $content.find('#gameInfo > h2 > a').text();
 
                 const game = $content.find('#gameVitals > p').text();
                 info['num_player'] = game.match(/(Players:\s)(.+)(C)/)[2].trim();
+                if (info['num_player'] === "N/A") {
+                		info['num_player'] = 1;
+                }
                 info['coop'] = game.indexOf("No") === -1;
-                info['genre'] = game.match(/(Genres:)(\s.+\s)(\n)/)[2].trim();
+                	let genre = game.match(/(Genres:)(\s.+\s)(\n)/)[2].trim();
+                if (genre === "N/A")
+                		info['genre'] = null;
+                else 
+                		info['genre'] = genre;
                 info['release_date'] = game.match(/\d+\/\d+\/\d+/)[0];
-                info['developer'] = $content.find('#gameVitals > p > img').last().attr('title');
-                info['publisher'] = game.match(/(?:Publisher:\s)(.+)(\n)/)[1];
-                info['front_box_art'] = $content.find('#gameCoversWrapper > p > a:nth-child(3)').attr('href');
-                info['back_box_art'] = $content.find('#gameCoversWrapper > p > a:nth-child(5)').attr('href');
+                info['developer'] = game.match(/(?:Developer:\s)(.+)(\n)/)[1].trim();
+                info['publisher'] = game.match(/(?:Publisher:\s)(.+)(\n)/)[1].trim();
+                
+                if ($content.find("#gameCoversWrapper > p > a").length > 2) {
+                    info['front_box_art'] = $content.find('#gameCoversWrapper > p > a:nth-child(3)').attr('href');
+                    info['back_box_art'] = $content.find('#gameCoversWrapper > p > a:nth-child(5)').attr('href');
+                } else {
+                		info['front_box_art'] = $content.find('#gameCoversWrapper > p > a:nth-child(2)').attr('href')
+                		info['back_box_art'] == null;
+                }
+                
                 info['logo'] = $content.find('#gameInfo div > p > img:first-child').attr('src');
                 info['developer_logo'] = $content.find('#gameVitals > p > img').last().attr('src');
                 info['comments'] = null;
@@ -68,7 +83,7 @@ const extractGameInfo = function (body) {
 };
 
 let games = [];
-for (let i = 238; i < 600; i++) {
+for (let i = 100; i < 600; i++) {
     games.push(extractGameInfo(requestGameById(i)));
 }
 
@@ -83,7 +98,7 @@ Promise.all(games).then(games => {
     const num = json.length;
     json = JSON.stringify(json);
 
-    fs.writeFile("games.text", json, function(err) {
+    fs.writeFile("games.json", json, function(err) {
         if(err) {
             return console.log(err);
         }

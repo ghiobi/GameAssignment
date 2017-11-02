@@ -11,7 +11,7 @@ import com.games.models.User;
 import com.games.services.AuthService;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class LoginController for loggin the user
  */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
@@ -34,16 +34,18 @@ public class LoginController extends HttpServlet {
 		User user = getAuthService().authenticate(email, password);
 		
 		if (user == null) {
-			response.sendRedirect("login.jsp");
+			request.getSession().setAttribute("flashDanger", "Wrong credentials, please try again.");
+			response.sendRedirect("/Games/login.jsp");
 			return;
 		}
 		
-		response.getWriter().append(user.getFirstname() + "has signed in!");
-		System.out.println(user.getFirstname());
+		request.getSession().setAttribute("user", user);
+		response.sendRedirect("/Games/index.jsp");
 	}
 	
 	protected AuthService getAuthService() {
 		return AuthService.getInstance();
 	}
+	
 	
 }

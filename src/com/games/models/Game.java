@@ -1,35 +1,48 @@
 package com.games.models;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
+/**
+ * Object containing the Game model
+ *
+ */
 public class Game {
 
 	private int gameid;
-	private String game_description;
+	private String gamename;
+	private String gameDescription;
 	private String console;
-	private int num_players;
+	private int numPlayers;
 	private boolean coop;
 	private ArrayList<String> genre;
-	private String release_date;
+	private Date releaseDate;
 	private String developer;
 	private String publisher;
-	private String front_box_art;
-	private String back_box_art;
+	private String frontBoxArt;
+	private String backBoxArt;
 	private String logo;
-	private String developer_logo;
-	private String comments;
+	private String developerLogo;
+	private int price;
+	private int discount;
 	
-	public int getGameid() {
+	public int getGameId() {
 		return gameid;
 	}
-	public void setGameid(int gameid) {
+	public void setGameId(int gameid) {
 		this.gameid = gameid;
 	}
-	public String getGame_description() {
-		return game_description;
+	public String getGameName() {
+		return gamename;
 	}
-	public void setGame_description(String game_description) {
-		this.game_description = game_description;
+	public void setGameName(String gamename) {
+		this.gamename = gamename;
+	}
+	public String getGameDescription() {
+		return gameDescription;
+	}
+	public void setGameDescription(String game_description) {
+		this.gameDescription = game_description;
 	}
 	public String getConsole() {
 		return console;
@@ -37,11 +50,11 @@ public class Game {
 	public void setConsole(String console) {
 		this.console = console;
 	}
-	public int getNum_players() {
-		return num_players;
+	public int getNumPlayers() {
+		return numPlayers;
 	}
-	public void setNum_players(int num_players) {
-		this.num_players = num_players;
+	public void setNumPlayers(int num_players) {
+		this.numPlayers = num_players;
 	}
 	public boolean isCoop() {
 		return coop;
@@ -55,11 +68,11 @@ public class Game {
 	public void setGenre(ArrayList<String> genre) {
 		this.genre = genre;
 	}
-	public String getRelease_date() {
-		return release_date;
+	public Date getReleaseDate() {
+		return releaseDate;
 	}
-	public void setRelease_date(String release_date) {
-		this.release_date = release_date;
+	public void setReleaseDate(Date release_date) {
+		this.releaseDate = release_date;
 	}
 	public String getDeveloper() {
 		return developer;
@@ -73,17 +86,17 @@ public class Game {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
-	public String getFront_box_art() {
-		return front_box_art;
+	public String getFrontBoxArt() {
+		return frontBoxArt;
 	}
-	public void setFront_box_art(String front_box_art) {
-		this.front_box_art = front_box_art;
+	public void setFrontBoxArt(String front_box_art) {
+		this.frontBoxArt = front_box_art;
 	}
-	public String getBack_box_art() {
-		return back_box_art;
+	public String getBackBoxArt() {
+		return backBoxArt;
 	}
-	public void setBack_box_art(String back_box_art) {
-		this.back_box_art = back_box_art;
+	public void setBackBoxArt(String back_box_art) {
+		this.backBoxArt = back_box_art;
 	}
 	public String getLogo() {
 		return logo;
@@ -91,17 +104,35 @@ public class Game {
 	public void setLogo(String logo) {
 		this.logo = logo;
 	}
-	public String getDeveloper_logo() {
-		return developer_logo;
+	public String getDeveloperLogo() {
+		return developerLogo;
 	}
-	public void setDeveloper_logo(String developer_logo) {
-		this.developer_logo = developer_logo;
+	public void setDeveloperLogo(String developer_logo) {
+		this.developerLogo = developer_logo;
 	}
-	public String getComments() {
-		return comments;
+	public int getGameid() {
+		return gameid;
 	}
-	public void setComments(String comments) {
-		this.comments = comments;
+	public void setGameid(int gameid) {
+		this.gameid = gameid;
+	}
+	public String getGamename() {
+		return gamename;
+	}
+	public void setGamename(String gamename) {
+		this.gamename = gamename;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public int getDiscount() {
+		return discount;
+	}
+	public void setDiscount(int discount) {
+		this.discount = discount;
 	}
 	
 }

@@ -6,6 +6,11 @@ import java.util.ArrayList;
 
 import com.games.models.User;
 
+/**
+ * Maps a ResultSet to a user Object.
+ * @author i861632
+ *
+ */
 public class UserMapper implements Mapper<User> {
 	
 	public ArrayList<User> map(ResultSet result) {
@@ -17,9 +22,9 @@ public class UserMapper implements Mapper<User> {
 				while(result.next()) {
 					final User user = new User();
 
-					user.setUserid(result.getInt("userid"));
-					user.setFirstname(result.getString("firstname"));
-					user.setLastname(result.getString("lastname"));
+					user.setUserId(result.getInt("userid"));
+					user.setFirstName(result.getString("firstname"));
+					user.setLastName(result.getString("lastname"));
 					user.setEmail(result.getString("email"));
 					user.setPassword(result.getString("password"));
 					user.setAddress1(result.getString("address1"));
