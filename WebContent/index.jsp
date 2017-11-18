@@ -11,7 +11,7 @@
 	<div class="container">
 		<h1>Welcome to Game Shop  
 		<c:if test="${not empty user}">
-			, ${user.getFirstName()} ${user.getLastName()}
+			, ${user.getFirstName()} ${user.getLastName()} | <small>Last logged ${ user.getLastLogin().toString() }</small>
 		</c:if>
 		</h1>
 		<p class="lead">Get the best games here!</p>

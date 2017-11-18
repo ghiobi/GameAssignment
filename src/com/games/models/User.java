@@ -1,5 +1,8 @@
 package com.games.models;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 /**
  * Object containing the User model.
  *
@@ -20,7 +23,12 @@ public class User {
 	private String creditCardType;
 	private String creditCardNumber;
 	private String creditCardCvv;
-	private String creditCardExpiry;
+	private Date creditCardExpiry;
+	private Timestamp lastLogin;
+	private int attemptLogin;
+	private Timestamp lastAttemptLogin;
+	private String resetToken;
+	private Timestamp resetTokenExpiry;
 	
 	public int getUserId() {
 		return userid;
@@ -106,13 +114,40 @@ public class User {
 	public void setCreditCardCvv(String credit_card_cvv) {
 		this.creditCardCvv = credit_card_cvv;
 	}
-	public String getCreditCardExpiry() {
+	public Date getCreditCardExpiry() {
 		return creditCardExpiry;
 	}
-	public void setCreditCardExpiry(String credit_card_expiry) {
+	public void setCreditCardExpiry(Date credit_card_expiry) {
 		this.creditCardExpiry = credit_card_expiry;
 	}
-	
-	
-	
+	public Timestamp getLastLogin() {
+		return lastLogin;
+	}
+	public void setLastLogin(Timestamp lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+	public int getAttemptLogin() {
+		return attemptLogin;
+	}
+	public void setAttemptLogin(int attemptLogin) {
+		this.attemptLogin = attemptLogin;
+	}
+	public Timestamp getLastAttemptLogin() {
+		return lastAttemptLogin;
+	}
+	public void setLastAttemptLogin(Timestamp lastAttemptLogin) {
+		this.lastAttemptLogin = lastAttemptLogin;
+	}
+	public String getResetToken() {
+		return resetToken;
+	}
+	public void setResetToken(String resetToken) {
+		this.resetToken = resetToken;
+	}
+	public Timestamp getResetTokenExpiry() {
+		return resetTokenExpiry;
+	}
+	public void setResetTokenExpiry(Timestamp resetTokenExpiry) {
+		this.resetTokenExpiry = resetTokenExpiry;
+	}
 }

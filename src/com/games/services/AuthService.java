@@ -1,8 +1,12 @@
 package com.games.services;
 
+import java.sql.Timestamp;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.games.data.gateway.UserTableGateway;
+import com.games.exceptions.PasswordDoesNotMatchException;
+import com.games.exceptions.AccountIsLockedException;
 import com.games.models.User;
 
 /**
@@ -23,20 +27,55 @@ public class AuthService {
 		return getUserGateway().getUserById(id);
 	}
 	
+	public User getUserByEmail(String email) {
+		return getUserGateway().getUserByEmail(email);
+	}
+	
+	public User getUserByResetToken(String token) {
+		return getUserGateway().getUserByResetToken(token);
+	}
+	
 	/**
 	 * Authenticates the user.
 	 * @param email
 	 * @param password
 	 * @return
+	 * @throws PasswordDoesNotMatchException 
 	 */
-	public User authenticate(String email, String password) {
+	public User authenticate(String email, String password) throws PasswordDoesNotMatchException, AccountIsLockedException{
 		User user = getUserGateway().getUserByEmail(email);
 		
-		if (user == null || !user.getPassword().equals(password)) {
+		if (user == null) {
 			return null;
 		}
 		
+		if (!user.getPassword().equals(password)) {
+			if (user.getLastAttemptLogin() == null) {
+				getUserGateway().setAttempt(user, 1);
+			} else if (isAccountLocked(user)) {
+				throw new AccountIsLockedException(user);
+			} else if (user.getLastAttemptLogin().after(new Timestamp(System.currentTimeMillis() - 120000))) {
+				getUserGateway().setAttempt(user, user.getAttemptLogin() + 1);
+			} else {
+				getUserGateway().setAttempt(user, 1);
+			}
+			throw new PasswordDoesNotMatchException(user);
+		}
+		
+		recordLastLogin(user);
 		return user;
+	}
+	
+	public boolean isAccountLocked(User user) {
+		return user.getAttemptLogin() >= 3 && user.getLastAttemptLogin().after(new Timestamp(System.currentTimeMillis() - 86400000));
+	}
+	
+	public void recordLastLogin(User user) {
+		getUserGateway().recordLastLogin(user);
+	}
+	
+	public void setResetToken(User user, String token) {
+		getUserGateway().setResetToken(user, token);
 	}
 	
 	/**
@@ -62,6 +101,10 @@ public class AuthService {
 			return null;
 		}
 		return getUserGateway().insertUser(user);
+	}
+	
+	public void updateUser(User user) {
+		getUserGateway().updateUser(user);
 	}
 	
 	protected UserTableGateway getUserGateway() {

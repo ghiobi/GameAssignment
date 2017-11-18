@@ -1,10 +1,8 @@
 package com.games.data.gateway;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.games.data.DatabaseConnection;
 import com.games.data.mappers.GameMapper;
 import com.games.models.Game;
 

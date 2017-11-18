@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.games.exceptions.AccountIsLockedException;
+import com.games.exceptions.PasswordDoesNotMatchException;
 import com.games.models.User;
 import com.games.services.AuthService;
 
@@ -31,7 +33,18 @@ public class LoginController extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		User user = getAuthService().authenticate(email, password);
+		User user = null;
+		try {
+			user = getAuthService().authenticate(email, password);
+		} catch (PasswordDoesNotMatchException e) {
+			request.getSession().setAttribute("flashDanger", "You have " + (4 - e.getUser().getAttemptLogin()) + " attempts left!");
+			response.sendRedirect("/Games/login.jsp");
+			return;
+		} catch (AccountIsLockedException e) {
+			request.getSession().setAttribute("flashDanger", "Your account has been locked for 24h!");
+			response.sendRedirect("/Games/login.jsp");
+			return;
+		}
 		
 		if (user == null) {
 			request.getSession().setAttribute("flashDanger", "Wrong credentials, please try again.");
